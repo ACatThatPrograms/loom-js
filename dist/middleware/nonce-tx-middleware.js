@@ -40,7 +40,8 @@ var NonceTxMiddleware = /** @class */ (function () {
                         return [4 /*yield*/, this._client.getAccountNonceAsync({ key: key, account: account })];
                     case 1:
                         nonce = _a.sent();
-                        console.log("Nonce found : " + nonce);
+                        console.log("Nonce found : ")
+                        console.log(nonce);
                         log("Next nonce " + (nonce + 1));
                         tx = new loom_pb_1.NonceTx();
                         tx.setInner(txData);
@@ -52,7 +53,8 @@ var NonceTxMiddleware = /** @class */ (function () {
     };
     NonceTxMiddleware.prototype.HandleResults = function (results) {
         var validation = results.validation, commit = results.commit;
-        console.log("Tx nonce results: " + results);
+        console.log("Tx nonce results: ");
+        console.log(results);
         if (validation &&
             validation.code === 1 &&
             (validation.log && validation.log.indexOf('sequence number does not match') !== -1)) {
