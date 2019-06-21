@@ -52,9 +52,9 @@ var NonceTxMiddleware = /** @class */ (function () {
     };
     NonceTxMiddleware.prototype.HandleResults = function (results) {
         var validation = results.validation, commit = results.commit;
-        console.log("\nFrom loom-js noncetxMiddlware.js line 56 :: Tx nonce results: ");
+        console.log("\nFrom loom-js noncetxMiddlware.js line 56 :: Tx nonce results: \n");
         console.log(results);
-        console.log();
+        console.log("");
         if (validation &&
             validation.code === 1 &&
             (validation.log && validation.log.indexOf('sequence number does not match') !== -1)) {
