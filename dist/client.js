@@ -733,7 +733,7 @@ var Client = /** @class */ (function (_super) {
             return tslib_1.__generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        console.log("Getting nonce with params: ")
+                        console.log("loom-js/client.js line 736 :: Getting nonce with params: ")
                         console.log(params)
                         _a = parseInt;
                         return [4 /*yield*/, this._writeClient.sendAsync('nonce', params)];

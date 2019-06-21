@@ -36,12 +36,11 @@ var NonceTxMiddleware = /** @class */ (function () {
                     case 0:
                         key = this._publicKey ? crypto_utils_1.bytesToHex(this._publicKey) : undefined;
                         account = this._account ? this._account.toString() : undefined;
-                        console.log("About to try and fetch nonce. . .");
+                        console.log("loom-js NonceTxMiddleware line 39 :: About to try and fetch nonce. . .");
                         return [4 /*yield*/, this._client.getAccountNonceAsync({ key: key, account: account })];
                     case 1:
                         nonce = _a.sent();
-                        console.log("Nonce found : ")
-                        console.log(nonce);
+                        console.log("loom-js NonceTxMiddleware.js line 43 :: Nonce found : " + nonce)
                         log("Next nonce " + (nonce + 1));
                         tx = new loom_pb_1.NonceTx();
                         tx.setInner(txData);
@@ -53,18 +52,19 @@ var NonceTxMiddleware = /** @class */ (function () {
     };
     NonceTxMiddleware.prototype.HandleResults = function (results) {
         var validation = results.validation, commit = results.commit;
-        console.log("Tx nonce results: ");
+        console.log("\nFrom loom-js noncetxMiddlware.js line 56 :: Tx nonce results: ");
         console.log(results);
+        console.log();
         if (validation &&
             validation.code === 1 &&
             (validation.log && validation.log.indexOf('sequence number does not match') !== -1)) {
-            console.log("Validation error below: ");
+            console.log("\nValidation error below: ");
             throw new Error(exports.INVALID_TX_NONCE_ERROR);
         }
         if (commit &&
             commit.code === 1 &&
             (commit.log && commit.log.indexOf('sequence number does not match') !== -1)) {
-            console.log("Commit error below: ");
+            console.log("\nCommit error below: ");
             throw new Error(exports.INVALID_TX_NONCE_ERROR);
         }
         return results;
