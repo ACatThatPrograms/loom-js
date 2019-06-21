@@ -728,6 +728,7 @@ export class Client extends EventEmitter {
    * @return The nonce.
    */
   async getAccountNonceAsync(params: { key?: string; account?: string }): Promise<number> {
+    console.log("Getting nonce with params:" + params)
     return parseInt(await this._writeClient.sendAsync<string>('nonce', params), 10)
   }
 

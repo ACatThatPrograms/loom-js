@@ -37,7 +37,9 @@ export class NonceTxMiddleware implements ITxMiddlewareHandler {
   async Handle(txData: Readonly<Uint8Array>): Promise<Uint8Array> {
     const key = this._publicKey ? bytesToHex(this._publicKey) : undefined
     const account = this._account ? this._account.toString() : undefined
+    console.log("About to try and fetch nonce. . .")
     const nonce = await this._client.getAccountNonceAsync({ key, account })
+    console.log("Nonce found : " + nonce );
 
     log(`Next nonce ${nonce + 1}`)
 
@@ -49,11 +51,13 @@ export class NonceTxMiddleware implements ITxMiddlewareHandler {
 
   HandleResults(results: ITxResults): ITxResults {
     const { validation, commit } = results
+    console.log("Tx nonce results: " + results)
     if (
       validation &&
       validation.code === 1 &&
       (validation.log && validation.log.indexOf('sequence number does not match') !== -1)
     ) {
+      console.log("Validation error below: ")
       throw new Error(INVALID_TX_NONCE_ERROR)
     }
     if (
@@ -61,6 +65,7 @@ export class NonceTxMiddleware implements ITxMiddlewareHandler {
       commit.code === 1 &&
       (commit.log && commit.log.indexOf('sequence number does not match') !== -1)
     ) {
+      console.log("Commit error below: ")
       throw new Error(INVALID_TX_NONCE_ERROR)
     }
     return results
