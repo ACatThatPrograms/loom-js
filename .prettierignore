@@ -1,3 +1,0 @@
-src/mainnet-contracts/*.d.ts
-src/proto/*.d.ts
-src/tests/tests_pb.d.ts
